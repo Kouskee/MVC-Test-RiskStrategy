@@ -1,0 +1,136 @@
+﻿@using Infrastructure.Enums;
+@model Infrastructure.Models.Company
+
+<div class="d-flex row">
+    <h5 class="col-2">Company details</h5>
+    <h5 class="text-muted col-4">@Model.Name</h5>
+</div>
+
+<div id="details" class="d-flex">
+    <div class="row">
+        <div class="d-grid col-md-4">
+            <div class="align-content-start">
+                <hr>
+                <form id="detailsComapy" asp-action="Edit" method="post">
+                    <div id="info">
+                    </div>
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <input type="hidden" asp-for="Id" />
+                    <div class="form-group">
+                        <label asp-for="Name" class="control-label"></label>
+                        <input asp-for="Name" class="form-control" />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Adress" class="control-label"></label>
+                        <input asp-for="Adress" class="form-control" />
+                        <span asp-validation-for="Adress" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="City" class="control-label"></label>
+                        <input asp-for="City" class="form-control" />
+                        <span asp-validation-for="City" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="State" class="control-label"></label>
+                        <input asp-for="State" class="form-control" />
+                        <span asp-validation-for="State" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Phone" class="control-label"></label>
+                        <input asp-for="Phone" class="form-control" />
+                        <span asp-validation-for="Phone" class="text-danger"></span>
+                    </div>
+                </form>
+            </div>
+            <hr class="align-self-end">
+        </div>
+
+        <div class="d-grid col-md-4">
+            <div id="history" class="align-content-start">
+                <hr>
+            </div>
+            <hr class="align-self-end">
+        </div>
+        <div class="d-grid col-md-4">
+            <div id="notes" class="align-content-start">
+                <hr>
+            </div>
+            <hr class="align-self-end">
+        </div>
+
+        <div class="d-grid col-md-8">
+            <hr>
+            <div class="row">
+                <div class="col-md-6">
+                    <div id="employees" class="align-content-start">
+                    </div>
+                </div>
+
+                <div class="employee-form col-6">
+                    <div class="align-content-start">
+                        <form id="employeeForm">
+                            <div id="employeeEdit">
+                            </div>
+                            <input type="hidden" id="id" name="Id" value="0">
+                            <input type="hidden" id="companyId" name="CompanyId" value=@Model.Id>
+                            <div class="form-group row mb-1">
+                                <label class="col-4 col-form-label" for="firstName">First Name:</label>
+                                <div class="col-8">
+                                    <input type="text" id="firstName" name="firstName" class="form-control" required>
+                                </div>
+                            </div>
+                            <div class="form-group row mb-1">
+                                <label class="col-4 col-form-label" for="lastName">Last Name:</label>
+                                <div class="col-8">
+                                    <input type="text" id="lastName" name="lastName" class="form-control" required>
+                                </div>
+                            </div>
+                            <div class="form-group row mb-1">
+                                <label class="col-4 col-form-label" for="title">Title:</label>
+                                <div class="col-8">
+                                    <input type="text" id="title" name="title" class="form-control" required>
+                                </div>
+                            </div>
+                            <div class="form-group row mb-1">
+                                <label class="col-4 col-form-label" for="birthDate">Birth Date:</label>
+                                <div class="col-8">
+                                    <input type="date" id="birthDate" name="birthDate" class="form-control" required>
+                                </div>
+                            </div>
+                            <div class="form-group row mb-2">
+                                <label class="col-4 col-form-label" for="position">Position:</label>
+                                <div class="col-8">
+                                    <select id="position" asp-items=@Html.GetEnumSelectList(typeof(EmployeePosition)) class="form-control" required></select>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <hr class="align-self-end">
+        </div>
+    </div>
+</div>
+
+<script src="~/js/detailsInitializer.js"></script>
+<script src="~/js/employeeForm.js"></script>
+<script src="~/js/svgCode.js"></script>
+<script src="~/js/dynamicDetail.js"></script>
+<script src="~/js/functionIcon.js"></script>
+
+<script>
+    const employeeForm = 'employeeForm';
+
+    const paramsHist = ['history', `/History/GetByCompany/${@Model.Id}`, ['Order Date', 'Store City'], false];
+    const paramsNote = ['notes', `/Note/GetByCompany/${@Model.Id}`, ['Invoice Number', 'Employee'], true];
+    const paramsEmpl = ['employees', `/Employee/GetByCompany/${@Model.Id}`, ['First Name', 'Last Name'], true];
+
+    startInitializer();
+</script>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
