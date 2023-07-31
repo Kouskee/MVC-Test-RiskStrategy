@@ -43,7 +43,6 @@
     divContainer.appendChild(divIcons);
 
     mainContainer.appendChild(divContainer);
-    
 }
 
 function createTableHead(idContainer, columns) {
@@ -87,8 +86,7 @@ async function createTableBody(idContainer, url, columns, isClickable) {
 
         if (isClickable) {
             bodyRow.onclick = () => {
-                SelectedId = item['Id'];
-                ContainerName = idContainer;
+                selectRow(idContainer, item['Id'], bodyRow);
             };
         }
 

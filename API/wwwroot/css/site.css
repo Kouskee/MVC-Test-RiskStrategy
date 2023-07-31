@@ -46,3 +46,11 @@ body {
 hr {
     margin: 0.5rem 0 0.5rem 0;
 }
+
+tr.selected {
+    background-color: lightgray;
+}
+
+.hidden{
+    display: none;
+}

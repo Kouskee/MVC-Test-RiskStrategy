@@ -9,7 +9,7 @@
         { func: 'deleteNote', params: [paramsNote, "/Note/Delete/"], icon: 'delete' }
     ]);
     createContainer('employees', [
-        { icon: 'plus' },
+        { func: 'clearForm', params: employeeForm, icon: 'plus' },
         { func: 'refreshTable', params: paramsEmpl, icon: 'refresh' },
         { func: 'editEmpl', icon: 'pencil' }
     ]);
